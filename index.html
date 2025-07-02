@@ -55,7 +55,7 @@
     fetch('https://raw.githubusercontent.com/Meghraj1207/tasks/main/video.json')
       .then(res => res.json())
       .then(data => {
-        const url = data.videId.trim();
+        const url = data.videoId.trim();
         document.getElementById("videoFrame").src = url;
 
         // Try to extract the ID and use it for download link if possible
