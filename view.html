@@ -18,22 +18,17 @@
     async function update() {
       const url = document.getElementById("videoUrl").value.trim();
 
-      if (!url.includes("/preview")) {
-        alert("Please paste a valid Google Drive preview link.");
-        return;
-      }
-
-      const newContent = JSON.stringify({ videoUrl: url }, null, 2);
+      const content = JSON.stringify({ videoUrl: url }, null, 2);
       const apiUrl = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FILE_PATH}`;
 
       try {
-        // Get current file SHA
+        // STEP 1: Get current file SHA
         const getRes = await fetch(apiUrl, {
           headers: { Authorization: `token ${TOKEN}` }
         });
-        const file = await getRes.json();
+        const fileData = await getRes.json();
 
-        // Update content
+        // STEP 2: Update file with new content
         const putRes = await fetch(apiUrl, {
           method: "PUT",
           headers: {
@@ -42,20 +37,20 @@
           },
           body: JSON.stringify({
             message: "Update video URL",
-            content: btoa(unescape(encodeURIComponent(newContent))),
-            sha: file.sha
+            content: btoa(content),
+            sha: fileData.sha
           })
         });
 
         if (putRes.ok) {
-          alert("Video URL updated successfully!");
+          alert("✅ URL updated successfully!");
         } else {
-          const errorData = await putRes.json();
-          alert("Update failed: " + (errorData.message || "Unknown error"));
+          const error = await putRes.json();
+          alert("❌ Update failed: " + error.message);
         }
 
-      } catch (error) {
-        alert("Error: " + error.message);
+      } catch (err) {
+        alert("❌ Error: " + err.message);
       }
     }
   </script>
