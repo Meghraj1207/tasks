@@ -1,23 +1,63 @@
-<input type="text" id="videoLink" placeholder="Paste full Google Drive link">
-<button onclick="submitVideo()">Submit</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Video URL</title>
+</head>
+<body>
+  <h2>Update Google Drive Embed URL</h2>
+  <input type="text" id="videoUrl" placeholder="Paste Google Drive preview URL" size="80">
+  <button onclick="update()">Submit</button>
 
-<script>
-function extractId(url) {
-  const match = url.match(/\/d\/([a-zA-Z0-9_-]{25,})/);
-  return match ? match[1] : null;
-}
+  <script>
+    const USERNAME = "Meghraj1207";
+    const REPO = "tasks";
+    const FILE_PATH = "video.json";
+    const TOKEN = "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"; // 👈 Replace this securely
 
-function submitVideo() {
-  const url = document.getElementById("videoLink").value;
-  const id = extractId(url);
-  if (id) {
-    fetch('/video', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ videoId: url })
-    }).then(() => alert('Video link updated!'));
-  } else {
-    alert("Invalid link!");
-  }
-}
-</script>
+    async function update() {
+      const url = document.getElementById("videoUrl").value.trim();
+
+      if (!url.includes("/preview")) {
+        alert("Please paste a valid Google Drive preview link.");
+        return;
+      }
+
+      const newContent = JSON.stringify({ videoUrl: url }, null, 2);
+      const apiUrl = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${FILE_PATH}`;
+
+      try {
+        // Get current file SHA
+        const getRes = await fetch(apiUrl, {
+          headers: { Authorization: `token ${TOKEN}` }
+        });
+        const file = await getRes.json();
+
+        // Update content
+        const putRes = await fetch(apiUrl, {
+          method: "PUT",
+          headers: {
+            Authorization: `token ${TOKEN}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            message: "Update video URL",
+            content: btoa(unescape(encodeURIComponent(newContent))),
+            sha: file.sha
+          })
+        });
+
+        if (putRes.ok) {
+          alert("Video URL updated successfully!");
+        } else {
+          const errorData = await putRes.json();
+          alert("Update failed: " + (errorData.message || "Unknown error"));
+        }
+
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    }
+  </script>
+</body>
+</html>
