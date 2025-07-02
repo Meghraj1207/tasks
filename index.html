@@ -42,16 +42,20 @@
   <h1>Watch the Video</h1>
 
   <!-- Embedded Google Drive Video -->
-  <iframe src="https://drive.google.com/file/d/1b0tzO5ZNBZYxB0ndoUpFhigAR0GgFMHg/preview" 
-          width="800" height="450" allow="autoplay">
-  </iframe>
+  <iframe id="videoFrame" width="800" height="450" allow="autoplay"></iframe>
 
   <!-- Download/View link -->
-  <a class="download-link" 
-     href="https://drive.google.com/uc?export=download&id=1b0tzO5ZNBZYxB0ndoUpFhigAR0GgFMHg" 
+  <a class="download-link" id="videoFrame"
      target="_blank">
     Download or View in Google Drive
   </a>
 
 </body>
+  <script>
+fetch('/video')
+  .then(response => response.text())
+  .then(videoId => {
+    document.getElementById("videoFrame").src = `https://drive.google.com/file/d/${videoId.trim()}/preview`;
+  });
+</script>
 </html>
