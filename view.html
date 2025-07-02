@@ -1,57 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Drive Video Viewer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f9fa;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h1 {
-      color: #333;
-    }
-    iframe {
-      margin-top: 20px;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    a.download-link {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background 0.3s;
-    }
-    a.download-link:hover {
-      background: #0056b3;
-    }
-  </style>
-</head>
-<body>
+<input type="text" id="videoLink" placeholder="Paste full Google Drive link">
+<button onclick="submitVideo()">Submit</button>
 
-  <h1>Watch the Video</h1>
+<script>
+function extractId(url) {
+  const match = url.match(/\/d\/([a-zA-Z0-9_-]{25,})/);
+  return match ? match[1] : null;
+}
 
-  <!-- Embedded Google Drive Video -->
-  <iframe src="https://drive.google.com/file/d/1b0tzO5ZNBZYxB0ndoUpFhigAR0GgFMHg/preview" 
-          width="800" height="450" allow="autoplay">
-  </iframe>
-
-  <!-- Download/View link -->
-  <a class="download-link" 
-     href="https://drive.google.com/uc?export=download&id=1b0tzO5ZNBZYxB0ndoUpFhigAR0GgFMHg" 
-     target="_blank">
-    Download or View in Google Drive
-  </a>
-
-</body>
-</html>
+function submitVideo() {
+  const url = document.getElementById("videoLink").value;
+  const id = extractId(url);
+  if (id) {
+    fetch('/video', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ videoId: id })
+    }).then(() => alert('Video link updated!'));
+  } else {
+    alert("Invalid link!");
+  }
+}
+</script>
