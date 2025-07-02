@@ -55,7 +55,7 @@
 fetch('https://raw.githubusercontent.com/Meghraj1207/tasks/main/video.json')
   .then(response => response.text())
   .then(videoId => {
-    document.getElementById("videoFrame").src = `${videoId.trim()}`;
+    document.getElementById("videoFrame").src = `${videoId}`;
   });
 </script>
 </html>
