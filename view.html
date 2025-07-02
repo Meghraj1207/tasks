@@ -14,7 +14,7 @@ function submitVideo() {
     fetch('/video', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ videoId: id })
+      body: JSON.stringify({ videoId: url })
     }).then(() => alert('Video link updated!'));
   } else {
     alert("Invalid link!");
