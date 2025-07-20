@@ -1,13 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Video Preview</title>
+  <meta charset="UTF-8">
+  <title>Embedded Google Drive Video</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+    h1 {
+      color: #333;
+    }
+    iframe {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+  </style>
 </head>
 <body>
-    <h2>My Google Drive Video</h2>
-    <iframe width="800" height="450"
-      <video width="640" height="480" controls>
-  <source src="https://drive.google.com/uc?export=download&id=1LQPHZXm-YF0esl3RHow_0Y8qevPUQPoN" type="video/mp4">
-</video>
+
+  <h1>My Google Drive Video</h1>
+
+  <iframe
+    src="https://drive.google.com/file/d/1LQPHZXm-YF0esl3RHow_0Y8qevPUQPoN/preview"
+    width="800"
+    height="450"
+    allow="autoplay"
+    allowfullscreen>
+  </iframe>
+
 </body>
 </html>
