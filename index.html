@@ -1,38 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Embedded Google Drive Video</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 50px;
-    }
-    h1 {
-      color: #333;
-    }
-    iframe {
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architect Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">StudioName</div>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <h1>My Google Drive Video</h1>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Designing Spaces with Purpose</h1>
+      <p>Architecture that inspires.</p>
+      <a href="#projects" class="cta-button">View Projects</a>
+    </div>
+  </section>
 
-  <iframe
-    src="https://drive.google.com/file/d/1LQPHZXm-YF0esl3RHow_0Y8qevPUQPoN/preview"
-    width="800"
-    height="450"
-    allow="autoplay"
-    allowfullscreen>
-  </iframe>
+  <section id="projects" class="portfolio">
+    <h2>Our Projects</h2>
+    <div class="project-grid">
+      <!-- Repeat this card -->
+      <div class="project-card">
+        <img src="project1.jpg" alt="Modern Villa" />
+        <div class="project-info">
+          <h3>Modern Villa</h3>
+          <p>Minimalist design, natural lighting</p>
+        </div>
+      </div>
+      <!-- ... -->
+    </div>
+  </section>
 
+  <section id="about" class="about">
+    <h2>About Us</h2>
+    <p>We are a creative architecture studio with a focus on innovation, detail, and sustainability...</p>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Email Address" required />
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 StudioName. All rights reserved.</p>
+  </footer>
 </body>
 </html>
